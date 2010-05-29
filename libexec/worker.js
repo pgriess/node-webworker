@@ -14,6 +14,7 @@
 var msgpack = require('msgpack');
 var net = require('net');
 var sys = require('sys');
+var wwutil = require('webworker-utils');
 
 if (process.argv.length < 4) {
     throw new Error('usage: node worker.js <sock> <script>');
@@ -28,8 +29,8 @@ var ms = new msgpack.Stream(s);
 s.addListener('connect', function() {
     sys.debug('connected to server');
 
-    ms.send([1, process.pid]);
-    ms.send({'hello' : 'world'});
+    ms.send([wwutil.MSGTYPE_HANDSHAKE, process.pid]);
+    ms.send([wwutil.MSGTYPE_USER, {'hello' : 'world'}]);
 });
 
 ms.addListener('msg', function(m) {
