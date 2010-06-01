@@ -8,7 +8,5 @@ var w = new webworker.Worker(
 w.onmessage = function(msg) {
     sys.debug('Received message: ' + sys.inspect(msg) + ' from worker');
 };
-setTimeout(function() {
-    w.postMessage('Watson!');
-},
-1000);
+
+w.postMessage('Watson!');
