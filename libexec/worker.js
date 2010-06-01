@@ -67,14 +67,21 @@ ms.addListener('msg', function(msg, fd) {
 // Set up the context for the worker instance
 var workerCtx = {};
 
+// Context elements required for node.js
 workerCtx.global = workerCtx;
 workerCtx.process = process;
 workerCtx.require = require;
 workerCtx.__filename = scriptPath;
 workerCtx.__dirname = path.dirname(scriptPath);
 
+// Context elements required by the WebWorkers API spec
 workerCtx.postMessage = function(msg) {
     ms.send([wwutil.MSGTYPE_USER, msg]);
+};
+workerCtx.self = workerCtx;
+workerCtx.location = scriptPath;
+workerCtx.close = function() {
+    process.exit(0);
 };
 
 scriptObj.runInNewContext(workerCtx);
