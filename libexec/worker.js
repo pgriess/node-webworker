@@ -11,8 +11,8 @@
 //      path to the JavaScript source to be executed as the body of the
 //      worker.
 
+var assert = require('assert');
 var fs = require('fs');
-var msgpack = require('msgpack');
 var net = require('net');
 var path = require('path');
 var script = process.binding('evals');
@@ -32,7 +32,7 @@ var scriptObj = new script.Script(
 );
 
 var s = net.createConnection(sockPath);
-var ms = new msgpack.Stream(s);
+var ms = new wwutil.MsgStream(s);
 
 // Perform handshaking when we connect
 s.addListener('connect', function() {
@@ -41,7 +41,7 @@ s.addListener('connect', function() {
 
 // When we receive a message from the master, react and possibly dispatch it
 // to the worker context
-ms.addListener('msg', function(msg) {
+ms.addListener('msg', function(msg, fd) {
     if (!wwutil.isValidMessage(msg)) {
         sys.debug('Received invalid message: ' + sys.inspect(msg));
         return;
