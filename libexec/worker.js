@@ -19,17 +19,30 @@ var script = process.binding('evals');
 var sys = require('sys');
 var wwutil = require('webworker-utils');
 
+var writeError = process.binding('stdio').writeError;
+
 if (process.argv.length < 4) {
     throw new Error('usage: node worker.js <sock> <script>');
 }
 
 var sockPath = process.argv[2];
-var scriptPath = process.argv[3];
+var scriptLoc = new wwutil.WorkerLocation(process.argv[3]);
 
-var scriptObj = new script.Script(
-    fs.readFileSync(scriptPath),
-    scriptPath
-);
+var scriptObj = undefined;
+
+switch (scriptLoc.protocol) {
+case 'file':
+    scriptObj = new script.Script(
+        fs.readFileSync(scriptLoc.pathname),
+        scriptLoc.href
+    );
+    break;
+
+default:
+    writeError('Cannot load script from unknown protocol \'' + 
+        scriptLoc.protocol);
+    process.exit(1);
+}
 
 var s = net.createConnection(sockPath);
 var ms = new wwutil.MsgStream(s);
@@ -71,15 +84,15 @@ var workerCtx = {};
 workerCtx.global = workerCtx;
 workerCtx.process = process;
 workerCtx.require = require;
-workerCtx.__filename = scriptPath;
-workerCtx.__dirname = path.dirname(scriptPath);
+workerCtx.__filename = scriptLoc.pathname;
+workerCtx.__dirname = path.dirname(scriptLoc.pathname);
 
 // Context elements required by the WebWorkers API spec
 workerCtx.postMessage = function(msg) {
     ms.send([wwutil.MSGTYPE_USER, msg]);
 };
 workerCtx.self = workerCtx;
-workerCtx.location = scriptPath;
+workerCtx.location = scriptLoc;
 workerCtx.close = function() {
     process.exit(0);
 };

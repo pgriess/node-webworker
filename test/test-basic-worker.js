@@ -7,4 +7,4 @@ onmessage = function(msg) {
     close();
 };
 
-sys.debug('Running with location=' + self.location);
+sys.debug('Running with location=' + sys.inspect(self.location));
