@@ -65,8 +65,10 @@ ms.addListener('msg', function(msg, fd) {
         break;
 
     case wwutil.MSGTYPE_USER:
+        // XXX: I have no idea what the event object here should really look
+        //      like. I do know that it needs a 'data' elements, though.
         if (workerCtx.onmessage) {
-            workerCtx.onmessage(msg[1]);
+            workerCtx.onmessage({ data : msg[1] });
         }
 
         break;
@@ -75,6 +77,51 @@ ms.addListener('msg', function(msg, fd) {
         sys.debug('Received unexpected message: ' + msg);
         break;
     }
+});
+
+// Register for uncaught events for delivery to workerCtx.onerror
+//
+// XXX: Schedule an event to the master if we didn't handle it ourselves as per
+// http://www.whatwg.org/specs/web-workers/current-work/#runtime-script-errors
+//
+// XXX: I have no idea what the object delivered to 'onerror' should be.
+//      Let's try an exception for now.
+//
+// XXX: If this is a shared worker do not bubble up to the master.
+//
+// XXX: If a dedicated worker receives an error message from one of its
+//      children, it needs to bubble it up to the master.
+var inErrorHandler = false;
+process.addListener('uncaughtException', function(e) {
+    if (!inErrorHandler && workerCtx.onerror) {
+        inErrorHandler = true;
+        workerCtx.onerror(e);
+        inErrorHandler = false;
+
+        return;
+    }
+
+    // Don't bother setting inErrorHandler here, as we're already delivering
+    // the event to the master anyway
+    //
+    // XXX: Parse these values from e.stack.split('\n')
+    // 
+    //[ 'ReferenceError: ffl is not defined'
+    //, '    at repl:1:6'
+    //, '    at REPLServer.readline (repl:84:17)'
+    //, '    at Stream.<anonymous> (repl:47:19)'
+    //, '    at Stream.emit (events:25:26)'
+    //, '    at IOWatcher.callback (net:378:14)'
+    //, '    at node.js:204:9'
+    //]
+    //
+    // XXX: Need unit tests, badly.
+    //
+    ms.send([wwutil.MSGTYPE_ERROR, {
+        'message' : e.message,
+        'filename' : 'unknown',
+        'lineno' : -1,
+    }]);
 });
 
 // Set up the context for the worker instance
@@ -93,6 +140,7 @@ workerCtx.postMessage = function(msg) {
 };
 workerCtx.self = workerCtx;
 workerCtx.location = scriptLoc;
+workerCtx.closing = false;
 workerCtx.close = function() {
     process.exit(0);
 };
