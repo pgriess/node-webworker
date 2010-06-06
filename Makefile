@@ -1,17 +1,15 @@
 # Simple makefile is simple. See README.md.
 
-INSTALL_PREFIX ?= /opt/local
+INSTALL_DIR ?= /opt/local/share/node
 
 .PHONY: test install
 
-install: test
-	install -m 755 -d \
-		$(INSTALL_PREFIX)/lib/node $(INSTALL_PREFIX)/libexec/node
+install:
+	install -m 755 -d $(INSTALL_DIR)
 	install -m 444 lib/webworker.js lib/webworker-utils.js \
-		$(INSTALL_PREFIX)/lib/node
-	install -m 444 libexec/worker.js $(INSTALL_PREFIX)/libexec/node
+		lib/webworker-child.js $(INSTALL_DIR)
 
 test:
 	for f in `ls ./test/test-*.js` ; do \
-		NODE_PATH=$$NODE_PATH:./lib/node node $$f ; \
+		NODE_PATH=$$NODE_PATH:./lib node $$f ; \
 	done

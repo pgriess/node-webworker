@@ -40,5 +40,18 @@ outstanding events, etc that the Web Workers spec seems to expect.
 
 This package requires [node-msgpack](http://github.com/pgriess/node-msgpack).
 
-Installation is done using `make` on the `install` target. The `INSTALL_PREFIX`
-variable defines the root of the installation and defaults `/opt/local`.
+Installation is done using `make` on the `install` target. The `INSTALL_DIR`
+variable defines the directory to which JavaScript files will be installed and
+defaults to `/opt/local/share/node`.
+
+For example, to install to /foo/bar
+
+    % sudo make install INSTALL_DIR=/foo/bar
+    install -m 755 -d /foo/bar
+    install -m 444 lib/webworker.js lib/webworker-utils.js \
+                lib/webworker-child.js /foo/bar
+    % find /foo/bar
+    /foo/bar
+    /foo/bar/webworker-child.js
+    /foo/bar/webworker-utils.js
+    /foo/bar/webworker.js
