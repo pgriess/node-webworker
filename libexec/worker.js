@@ -56,12 +56,26 @@ s.addListener('connect', function() {
 // to the worker context
 ms.addListener('msg', function(msg, fd) {
     if (!wwutil.isValidMessage(msg)) {
-        sys.debug('Received invalid message: ' + sys.inspect(msg));
+        wwutil.debug(1, 'Received invalid message: ' + sys.inspect(msg));
         return;
     }
 
     switch(msg[0]) {
     case wwutil.MSGTYPE_NOOP:
+        break;
+
+    case wwutil.MSGTYPE_CLOSE:
+        // Conform to the Web Workers API for termination
+        workerCtx.closing = true;
+
+        // Close down the event sources that we know about
+        s.destroy();
+
+        // Request that the worker perform any application-level shutdown
+        if (workerCtx.onclose) {
+            workerCtx.onclose();
+        }
+
         break;
 
     case wwutil.MSGTYPE_USER:
@@ -74,7 +88,7 @@ ms.addListener('msg', function(msg, fd) {
         break;
 
     default:
-        sys.debug('Received unexpected message: ' + msg);
+        wwutil.debug(1, 'Received unexpected message: ' + sys.inspect(msg));
         break;
     }
 });

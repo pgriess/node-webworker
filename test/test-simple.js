@@ -14,7 +14,6 @@ w.onmessage = function(e) {
     assert.equal(e.data.bunkle, 'baz');
 
     w.terminate();
-    process.exit(0);
 };
 
 w.postMessage({'foo' : 'bar', 'baz' : 'bunkle'});

@@ -23,3 +23,15 @@ API](http://www.whatwg.org/specs/web-workers/current-work/) for
     onmessage = function(e) {
         postMessage({ test : 'this is a test' });
     };
+    
+    onclose = function() {
+        sys.debug('Worker shuttting down.');
+    };
+
+### API
+
+Each worker context (i.e. the global context of a worker object) has a
+non-standard `onclose()` handler which is invoked when a worker is being
+closed. This is intended to allow applications to perform graceful shutdown
+and is needed because the worker runtime does not maintain knowledge of all
+outstanding events, etc that the Web Workers spec seems to expect.
