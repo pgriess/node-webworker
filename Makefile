@@ -11,5 +11,5 @@ install:
 
 test:
 	for f in `ls ./test/test-*.js` ; do \
-		NODE_PATH=$$NODE_PATH:./lib node $$f ; \
+		NODE_PATH=./lib:$$NODE_PATH node $$f ; \
 	done
