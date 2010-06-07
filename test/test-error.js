@@ -10,6 +10,10 @@ var receivedError = false;
 w.onerror = function(e) {
     assert.equal(5, e.lineno);
     assert.equal('AssertionError: true == false', e.message);
+    assert.equal(
+        e.filename.substring(e.filename.lastIndexOf('/') + 1),
+        'error.js'
+    );
 
     receivedError = true;
     w.terminate();
