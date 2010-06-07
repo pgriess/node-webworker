@@ -41,8 +41,11 @@ Supported API methods are
 In addition, some nonstandard APIs are provided
 
    * `onclose()` in the worker (allows for graceful shutdown)
-   * The event passed to `onmessage` handlers optionally conatins an `fd` field
-     indicating the file descriptor sent with this message.
+   * The `postMessage()` method takes an additional optional file descriptor parameter, which
+     will be sent with the message. This descriptor will be passed to
+     `onmessage` handlers as an optional `fd` field. Handlers receiving
+     messages posted without file descriptors will not see an `fd` field. Both
+     the parent and child can send file descriptors using this mechanism.
 
 ### Installation
 
