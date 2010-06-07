@@ -6,6 +6,8 @@ var path = require('path');
 var sys = require('sys');
 var Worker = require('webworker').Worker;
 
+var receivedMsg = false;
+
 var w = new Worker(path.join(__dirname, 'workers', 'simple.js'));
 
 w.onmessage = function(e) {
@@ -13,7 +15,13 @@ w.onmessage = function(e) {
     assert.equal(e.data.bar, 'foo');
     assert.equal(e.data.bunkle, 'baz');
 
+    receivedMsg = true;
+
     w.terminate();
 };
 
 w.postMessage({'foo' : 'bar', 'baz' : 'bunkle'});
+
+process.addListener('exit', function() {
+    assert.equal(receivedMsg, true);
+});
