@@ -30,11 +30,19 @@ API](http://www.whatwg.org/specs/web-workers/current-work/) for
 
 ### API
 
-Each worker context (i.e. the global context of a worker object) has a
-non-standard `onclose()` handler which is invoked when a worker is being
-closed. This is intended to allow applications to perform graceful shutdown
-and is needed because the worker runtime does not maintain knowledge of all
-outstanding events, etc that the Web Workers spec seems to expect.
+Supported API methods are
+
+   * `postMessage(e)` in both workers and the parent; messages are in the
+     parent if this is invoked before the child is fully initialized
+   * `onmessage(e)` in both workers and the parent
+   * `onerror(e)`in both workers and the parent
+   * `terminate()` in the parent
+
+In addition, some nonstandard APIs are provided
+
+   * `onclose()` in the worker (allows for graceful shutdown)
+   * The event passed to `onmessage` handlers optionally conatins an `fd` field
+     indicating the file descriptor sent with this message.
 
 ### Installation
 
