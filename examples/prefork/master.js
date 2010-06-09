@@ -3,7 +3,7 @@ var netBindings = process.binding('net');
 var Worker = require('webworker').Worker;
 
 var fd = netBindings.socket('tcp4');
-netBindings.bind(fd, 8080);
+netBindings.bind(fd, 80);
 netBindings.listen(fd, 128);
 
 for (var i = 0; i < 8; i++) {

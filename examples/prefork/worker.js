@@ -1,6 +1,8 @@
 var assert = require('assert');
 var http = require('http');
 
+process.setuid('nobody');
+
 var banner = undefined;
 
 var srv = http.createServer(function(req, resp) {
