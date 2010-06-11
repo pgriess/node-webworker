@@ -46,6 +46,8 @@ In addition, some nonstandard APIs are provided
      `onmessage` handlers as an optional `fd` field. Handlers receiving
      messages posted without file descriptors will not see an `fd` field. Both
      the parent and child can send file descriptors using this mechanism.
+   * `Worker.onexit(code, signal)` in the master, which is invoked on the
+     master `Worker` object when the worker process exits.
 
 ### Installation
 

@@ -7,6 +7,7 @@ var sys = require('sys');
 var Worker = require('webworker').Worker;
 
 var receivedMsg = false;
+var receivedExit = false;
 
 var w = new Worker(path.join(__dirname, 'workers', 'simple.js'));
 
@@ -20,8 +21,16 @@ w.onmessage = function(e) {
     w.terminate();
 };
 
+w.onexit = function(c, s) {
+    assert.equal(c, 0);
+    assert.equal(s, null);
+
+    receivedExit = true;
+};
+
 w.postMessage({'foo' : 'bar', 'baz' : 'bunkle'});
 
 process.addListener('exit', function() {
     assert.equal(receivedMsg, true);
+    assert.equal(receivedExit, true);
 });
