@@ -6,7 +6,7 @@ INSTALL_DIR ?= /opt/local/share/node
 
 test:
 	for f in `ls ./test/test-*.js` ; do \
-		NODE_PATH=./lib:$(NODE_PATH) node $$f ; \
+		node $$f ; \
 	done
 
 install:

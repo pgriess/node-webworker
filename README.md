@@ -7,7 +7,7 @@ API](http://www.whatwg.org/specs/web-workers/current-work/) for
 #### Master source
 
     var sys = require('sys');
-    var Worker = require('webworker').Worker;
+    var Worker = require('webworker/webworker').Worker;
     
     var w = new Worker('foo.js');
     
@@ -55,20 +55,13 @@ In addition, some nonstandard APIs are provided
 
 ### Installation
 
-This package requires [node-msgpack](http://github.com/pgriess/node-msgpack).
+This package can be installed via (npm)[http://npmjs.org/] as follows
 
-Installation is done using `make` on the `install` target. The `INSTALL_DIR`
-variable defines the directory to which JavaScript files will be installed and
-defaults to `/opt/local/share/node`.
+    % npm install websocket
 
-For example, to install to /foo/bar
-
-    % sudo make install INSTALL_DIR=/foo/bar
-    install -m 755 -d /foo/bar
-    install -m 444 lib/webworker.js lib/webworker-utils.js \
-                lib/webworker-child.js /foo/bar
-    % find /foo/bar
-    /foo/bar
-    /foo/bar/webworker-child.js
-    /foo/bar/webworker-utils.js
-    /foo/bar/webworker.js
+Note that this requires
+[node-websocket-client](http://github.com/pgriess/node-websocket-client) v0.9.3
+or later and
+[node-websocket-server](http://github.com/miksago/node-websocket-server)
+v1.3.00 or later. These dependencies will be handled automatically by `npm`,
+but must be dealt with manually if installing using another procedure.

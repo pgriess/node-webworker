@@ -1,6 +1,6 @@
 var path = require('path');
 var netBindings = process.binding('net');
-var Worker = require('webworker').Worker;
+var Worker = require('../lib/webworker').Worker;
 
 var fd = netBindings.socket('tcp4');
 netBindings.bind(fd, 80);

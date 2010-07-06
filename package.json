@@ -1,0 +1,25 @@
+{
+    "name" : "webworker",
+    "version" : "0.1.0",
+    "description" : "An implementation of the HTML5 Web Worker API",
+    "author" : "Peter Griess <pg@std.in>",
+    "engines" : {
+        "node" : "0.1.98 - 0.1.199"
+    },
+    "dependencies" : {
+        "websocket-server" : "1.2.00 - 1.2.99999",
+        "websocket-client" : "0.9.2 - 0.9.99999"
+    },
+    "repositories" : [
+        {
+            "type" : "git",
+            "url" : "http://github.com/pgriess/node-webworker"
+        }
+    ],
+    "licenses" : [
+        {
+            "type" : "BSD",
+            "url" : "http://github.com/pgriess/node-webworker/blob/master/LICENSE"
+        }
+    ]
+}
