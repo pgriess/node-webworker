@@ -48,6 +48,12 @@ In addition, some nonstandard APIs are provided
      the parent and child can send file descriptors using this mechanism.
    * `Worker.onexit(code, signal)` in the master, which is invoked on the
      master `Worker` object when the worker process exits.
+   * The `Worker` constructor takes an additional optional object argument,
+     `opts`, which is used as a dictionary of options with the following keys
+      * `args` : A string or array of strings to pass to the `node` executable
+                 before the filename to invoke. This can be used to request that
+                 the worker start up in debug mode (e.g. `{ 'args' :
+                 '--debug-brk' }`).
 
 ### Installation
 
