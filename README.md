@@ -58,7 +58,7 @@ In addition, some nonstandard APIs are provided
 
 ### Installation
 
-This package can be installed via (npm)[http://npmjs.org/] as follows
+This package can be installed via [npm](http://npmjs.org/) as follows
 
     % npm install websocket
 
