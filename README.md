@@ -61,7 +61,11 @@ This package can be installed via (npm)[http://npmjs.org/] as follows
 
 Note that this requires
 [node-websocket-client](http://github.com/pgriess/node-websocket-client) v0.9.3
-or later and
-[node-websocket-server](http://github.com/miksago/node-websocket-server)
-v1.3.00 or later. These dependencies will be handled automatically by `npm`,
-but must be dealt with manually if installing using another procedure.
+or later. This dependency will be handled automatically by `npm`, but must be
+dealt with manually if installing using another procedure.
+
+### Credits
+
+This package contains a static snapshot of Micheil Smith's excellent
+[node-websocket-server](http://github.com/miksago/node-websocket-server) with
+some fixes applied to handle UNIX sockets.
