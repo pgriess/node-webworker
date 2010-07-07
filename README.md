@@ -1,6 +1,9 @@
-`node-webworkers` is an experimental implementation of the [Web Workers
+`node-webworkers` is an implementation of the [Web Workers
 API](http://www.whatwg.org/specs/web-workers/current-work/) for
 [node.js](http://nodejs.org).
+
+See the design document
+[here](http://github.com/pgriess/node-webworker/blob/master/docs/design.md).
 
 ### Example
 
