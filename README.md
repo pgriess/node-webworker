@@ -3,7 +3,7 @@ API](http://www.whatwg.org/specs/web-workers/current-work/) for
 [node.js](http://nodejs.org).
 
 See the design document
-[here](http://github.com/pgriess/node-webworker/blob/master/docs/design.md).
+[here](http://blog.std.in/2010/07/08/nodejs-webworker-design/).
 
 ### Example
 
