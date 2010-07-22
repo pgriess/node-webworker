@@ -20,5 +20,6 @@
             "type" : "BSD",
             "url" : "http://github.com/pgriess/node-webworker/blob/master/LICENSE"
         }
-    ]
+    ],
+    "main" : "./lib/webworker"
 }
