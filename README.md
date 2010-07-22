@@ -10,7 +10,7 @@ See the design document
 #### Master source
 
     var sys = require('sys');
-    var Worker = require('webworker/webworker').Worker;
+    var Worker = require('webworker').Worker;
     
     var w = new Worker('foo.js');
     
