@@ -1,34 +1,36 @@
-// Verify that we can spawn a worker, send and receive a simple message, and
-// kill it.
+// Verify that we can create a shared worker.
 
 var assert = require('assert');
 var path = require('path');
+var SharedWorker = require('../lib').SharedWorker;
 var sys = require('sys');
-var Worker = require('../lib').Worker;
 
 var receivedMsg = false;
 var receivedExit = false;
 
-var w = new Worker(path.join(__dirname, 'workers', 'simple.js'));
+var sw = new SharedWorker(
+    path.join(__dirname, 'workers', 'shared-simple.js'),
+    'Auguste Chouteau'
+);
 
-w.onmessage = function(e) {
+sw.port.onmessage = function(e) {
     assert.ok('data' in e);
     assert.equal(e.data.bar, 'foo');
     assert.equal(e.data.bunkle, 'baz');
 
     receivedMsg = true;
 
-    w.terminate();
+    sw.terminate();
 };
 
-w.onexit = function(c, s) {
+sw.port.onexit = function(c, s) {
     assert.equal(c, 0);
     assert.equal(s, null);
 
     receivedExit = true;
 };
 
-w.postMessage({'foo' : 'bar', 'baz' : 'bunkle'});
+sw.port.postMessage({'foo' : 'bar', 'baz' : 'bunkle'});
 
 process.addListener('exit', function() {
     assert.equal(receivedMsg, true);

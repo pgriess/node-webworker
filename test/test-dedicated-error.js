@@ -4,7 +4,7 @@ var assert = require('assert');
 var path = require('path');
 var Worker = require('../lib').Worker;
 
-var w = new Worker(path.join(__dirname, 'workers', 'error.js'));
+var w = new Worker(path.join(__dirname, 'workers', 'dedicated-error.js'));
 
 var receivedError = false;
 w.onerror = function(e) {
@@ -12,7 +12,7 @@ w.onerror = function(e) {
     assert.equal('AssertionError: true == false', e.message);
     assert.equal(
         e.filename.substring(e.filename.lastIndexOf('/') + 1),
-        'error.js'
+        'dedicated-error.js'
     );
 
     receivedError = true;

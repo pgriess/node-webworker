@@ -7,7 +7,7 @@ var path = require('path');
 var sys = require('sys');
 var Worker = require('../lib').Worker;
 
-var w = new Worker(path.join(__dirname, 'workers', 'fd.js'));
+var w = new Worker(path.join(__dirname, 'workers', 'dedicated-fd.js'));
 
 var fds = netBinding.pipe();
 
