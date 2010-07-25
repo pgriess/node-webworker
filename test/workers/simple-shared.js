@@ -1,6 +1,8 @@
 var assert = require('assert');
 var sys = require('sys');
 
+assert.equal(name, 'Auguste Chouteau');
+
 onconnect = function(e) {
     var port = e.ports[0];
 

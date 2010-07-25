@@ -9,7 +9,8 @@ var receivedMsg = false;
 var receivedExit = false;
 
 var sw = new SharedWorker(
-    path.join(__dirname, 'workers', 'simple-shared.js')
+    path.join(__dirname, 'workers', 'simple-shared.js'),
+    'Auguste Chouteau'
 );
 
 sw.port.onmessage = function(e) {
