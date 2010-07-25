@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 var path = require('path');
-var SharedWorker = require('../lib/webworker').SharedWorker;
+var SharedWorker = require('../lib').SharedWorker;
 var sys = require('sys');
 
 var receivedMsg = false;
