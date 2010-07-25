@@ -42,3 +42,5 @@ var f = function(wp) {
 f(workerPath + 'qq');
 f(undefined);
 f('');
+
+sw.terminate();
