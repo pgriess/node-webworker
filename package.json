@@ -1,6 +1,6 @@
 {
     "name" : "webworker",
-    "version" : "0.8.1",
+    "version" : "0.8.2",
     "description" : "An implementation of the HTML5 Web Worker API",
     "author" : "Peter Griess <pg@std.in>",
     "engines" : {
