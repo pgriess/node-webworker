@@ -1,5 +1,4 @@
 var assert = require('assert');
-var sys = require('sys');
 
 onmessage = function(e) {
     assert.ok('data' in e);
@@ -12,4 +11,11 @@ onmessage = function(e) {
     }
 
     postMessage(msg);
+};
+
+// XXX: We can do better than this. We should have an API to detach the
+//      worker from the event loop so that we can exit cleanly. Otherwise,
+//      test-simple.js can never work, really.
+onclose = function() {
+    process.exit(0);
 };

@@ -12,6 +12,7 @@ onmessage = function(e) {
     s.write(JSON.stringify(e.data));
 };
 
+// XXX: See comment in test/workers/simple.js.
 onclose = function() {
     s.destroy();
 };
