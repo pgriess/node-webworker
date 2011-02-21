@@ -60,7 +60,7 @@ In addition, some nonstandard APIs are provided
 
 This package can be installed via [npm](http://npmjs.org/) as follows
 
-    % npm install websocket
+    % npm install webworker
 
 Note that this requires
 [node-websocket-client](http://github.com/pgriess/node-websocket-client) v0.9.3
