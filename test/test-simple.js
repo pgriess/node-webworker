@@ -4,7 +4,7 @@
 var assert = require('assert');
 var path = require('path');
 var sys = require('sys');
-var Worker = require('../lib/webworker').Worker;
+var Worker = require('../lib/webworker');
 
 var receivedMsg = false;
 var receivedExit = false;
