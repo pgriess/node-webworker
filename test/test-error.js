@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 var path = require('path');
-var Worker = require('../lib/webworker').Worker;
+var Worker = require('../lib/webworker');
 
 var w = new Worker(path.join(__dirname, 'workers', 'error.js'));
 
