@@ -5,7 +5,7 @@ var net = require('net');
 var netBinding = process.binding('net');
 var path = require('path');
 var sys = require('sys');
-var Worker = require('../lib/webworker').Worker;
+var Worker = require('../lib/webworker');
 
 var w = new Worker(path.join(__dirname, 'workers', 'fd.js'));
 
