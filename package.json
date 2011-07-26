@@ -6,9 +6,6 @@
     "engines" : {
         "node" : ">=0.1.98"
     },
-    "dependencies" : {
-        "websocket-client" : "0.9.3 - 0.9.99999"
-    },
     "repositories" : [
         {
             "type" : "git",
