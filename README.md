@@ -28,6 +28,7 @@ See the design document
 
 #### Worker source
 ```javascript
+    var sys = require('sys');
     onmessage = function(e) {
         postMessage({ test : 'this is a test' });
     };
