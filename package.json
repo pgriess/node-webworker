@@ -3,6 +3,7 @@
     "version" : "0.8.3",
     "description" : "An implementation of the HTML5 Web Worker API",
     "author" : "Peter Griess <pg@std.in>",
+    "url": "https://github.com/pgriess/node-webworker",
     "engines" : {
         "node" : ">=0.1.98"
     },
@@ -12,7 +13,7 @@
     "repositories" : [
         {
             "type" : "git",
-            "url" : "http://github.com/pgriess/node-webworker"
+            "url" : "https://github.com/pgriess/node-webworker.git"
         }
     ],
     "licenses" : [
