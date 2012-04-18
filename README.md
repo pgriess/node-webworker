@@ -8,11 +8,15 @@ See the design document
 ### Example
 
 #### Master source
-
+```javascript
     var sys = require('sys');
-    var Worker = require('webworker');
-    
-    var w = new Worker('foo.js');
+    var Worker = require('webworker').Worker;
+
+    var cDir = process.cwd()+'/'; // gets the path of the executing master process
+    var wPath = cDir+'foo.js';    // if you have the worker in the same directory as master
+    //var wPath = 'foo.js';       // if you have the worker in /foo.js
+
+    var w = new Worker(wPath);
     
     w.onmessage = function(e) {
         sys.debug('Received mesage: ' + sys.inspect(e));
@@ -20,9 +24,11 @@ See the design document
     };
     
     w.postMessage({ foo : 'bar' });
+```
 
 #### Worker source
-
+```javascript
+    var sys = require('sys');
     onmessage = function(e) {
         postMessage({ test : 'this is a test' });
     };
@@ -30,6 +36,7 @@ See the design document
     onclose = function() {
         sys.debug('Worker shuttting down.');
     };
+```
 
 ### API
 
