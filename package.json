@@ -6,6 +6,9 @@
     "engines" : {
         "node" : ">=0.1.98"
     },
+    "scripts": {
+        "test": "make test"
+    },
     "dependencies" : {
         "websocket-client" : "0.9.3 - 0.9.99999"
     },
