@@ -8,7 +8,7 @@ See the design document
 ### Example
 
 #### Master source
-
+```js
     var sys = require('sys');
     var Worker = require('webworker');
     
@@ -20,9 +20,9 @@ See the design document
     };
     
     w.postMessage({ foo : 'bar' });
-
+```
 #### Worker source
-
+```js
     onmessage = function(e) {
         postMessage({ test : 'this is a test' });
     };
@@ -30,7 +30,7 @@ See the design document
     onclose = function() {
         sys.debug('Worker shuttting down.');
     };
-
+```
 ### API
 
 Supported API methods are
