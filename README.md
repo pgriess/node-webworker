@@ -9,27 +9,31 @@ See the design document
 
 #### Master source
 
-    var sys = require('sys');
-    var Worker = require('webworker');
-    
-    var w = new Worker('foo.js');
-    
-    w.onmessage = function(e) {
-        sys.debug('Received mesage: ' + sys.inspect(e));
-        w.terminate();
-    };
-    
-    w.postMessage({ foo : 'bar' });
+```javascript
+var sys = require('sys');
+var Worker = require('webworker');
+
+var w = new Worker('foo.js');
+
+w.onmessage = function(e) {
+    sys.debug('Received mesage: ' + sys.inspect(e));
+    w.terminate();
+};
+
+w.postMessage({ foo : 'bar' });
+```
 
 #### Worker source
 
-    onmessage = function(e) {
-        postMessage({ test : 'this is a test' });
-    };
-    
-    onclose = function() {
-        sys.debug('Worker shuttting down.');
-    };
+```javascript
+onmessage = function(e) {
+    postMessage({ test : 'this is a test' });
+};
+
+onclose = function() {
+    sys.debug('Worker shuttting down.');
+};
+```
 
 ### API
 
@@ -60,7 +64,9 @@ In addition, some nonstandard APIs are provided
 
 This package can be installed via [npm](http://npmjs.org/) as follows
 
-    % npm install webworker
+```bash
+$ npm install webworker
+```
 
 Note that this requires
 [node-websocket-client](http://github.com/pgriess/node-websocket-client) v0.9.3
